@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { DiscordLog } from "../utils/discord-logs";
 import { validatorCompiler, serializerCompiler } from "fastify-type-provider-zod";
+import { SendDiscordMessage } from "../services/send-discord-message";
 
 const bodySchema = z.object({
   message: z.string(),
@@ -26,9 +26,9 @@ export async function routes(app: FastifyInstance) {
       try {
         const { message } = req.body; 
 
-        await DiscordLog(message);
+        await SendDiscordMessage(message);
 
-        return { message: "Message successfully sent to Discord" };
+        return { response: "Message successfully sent to Discord", message: message };
       } catch (error) {
         console.error("Error sending message to Discord:", {
           error: error instanceof Error ? error.message : 'Unknown error',

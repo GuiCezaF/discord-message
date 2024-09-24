@@ -2,7 +2,7 @@ import axios from "axios";
 import { env } from "../env";
 
 
-export async function DiscordLog(msg: string): Promise<void> { 
+export async function SendDiscordMessage(msg: string): Promise<void> { 
   const webhook_url = env.DISCORD_WEBHOOK;
 
   const params = {
@@ -21,7 +21,7 @@ export async function DiscordLog(msg: string): Promise<void> {
     });
     
     const data = sendMessage.data;
-    console.log(data);
+
     return data;
 
   } catch (error) {
