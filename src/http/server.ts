@@ -1,11 +1,14 @@
-import fastify from "fastify";
-
+import fastify from "fastify"   ;
+import cors from '@fastify/cors'
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { env } from "process";
 import { routes } from "../routes/routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
+app.register(cors, { 
+  origin:'*',
+})
 app.register(routes);
 
 app.listen({
